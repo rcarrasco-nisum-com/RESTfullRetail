@@ -1,0 +1,43 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:annotation-config />
+    <mvc:annotation-driven />
+
+    <context:component-scan base-package="nisum.controller" />
+    <context:component-scan base-package="nisum.dao" />
+    <context:component-scan base-package="nisum.model" />
+    <context:component-scan base-package="nisum.service" />
+    <context:component-scan base-package="nisum.restResources" />
+    <context:component-scan base-package="nisum.utils" />
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/jsp"/>
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <import resource="applicationContext-persistence.xml" />
+
+    <!--
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    -->
+
+    <mvc:resources location="/swagger-ui/" mapping="/swagger-ui/**" />
+
+    <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig">
+    </bean>
+
+    <!-- Interceptor to avoid: could not initialize proxy - no Session.
+    binds a Hibernate Session to the thread for the entire processing of the request -->
+    <mvc:interceptors>
+        <bean class="org.springframework.orm.hibernate4.support.OpenSessionInViewInterceptor">
+            <property name="sessionFactory" ref="sessionFactory" />
+        </bean>
+    </mvc:interceptors>
+
+</beans>
