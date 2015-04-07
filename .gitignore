@@ -1,0 +1,29 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# output sources
+build/
+out/
+/bin/
+
+# more folders
+.bin/
+.build/
+.gradle/
+
+# files
+*.csv
